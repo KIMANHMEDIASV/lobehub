@@ -170,6 +170,25 @@ table accounts {
   }
 }
 
+table passkey {
+  aaguid text
+  backedUp boolean
+  counter integer
+  createdAt timestamp [default: `now()`]
+  credentialID text [not null]
+  deviceType text
+  id text [pk, not null]
+  name text
+  publicKey text [not null]
+  transports text
+  userId text [not null]
+
+  indexes {
+    credentialID [name: 'passkey_credential_id_unique', unique]
+    userId [name: 'passkey_user_id_idx']
+  }
+}
+
 table auth_sessions {
   created_at timestamp [not null, default: `now()`]
   expires_at timestamp [not null]
@@ -1265,6 +1284,8 @@ table user_memories_preferences {
 }
 
 ref: accounts.user_id > users.id
+
+ref: passkey.userId > users.id
 
 ref: auth_sessions.user_id > users.id
 

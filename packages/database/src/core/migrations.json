@@ -1023,5 +1023,16 @@
     "bps": true,
     "folderMillis": 1766157362540,
     "hash": "7a8ee107778222390e676951173baa81bfa09dd47216a8467575fca54915172c"
+  },
+  {
+    "sql": [
+      "CREATE TABLE \"passkey\" (\n\t\"aaguid\" text,\n\t\"backedUp\" boolean,\n\t\"counter\" integer,\n\t\"createdAt\" timestamp DEFAULT now(),\n\t\"credentialID\" text NOT NULL,\n\t\"deviceType\" text,\n\t\"id\" text PRIMARY KEY NOT NULL,\n\t\"name\" text,\n\t\"publicKey\" text NOT NULL,\n\t\"transports\" text,\n\t\"userId\" text NOT NULL\n);\n",
+      "\nALTER TABLE \"passkey\" ADD CONSTRAINT \"passkey_userId_users_id_fk\" FOREIGN KEY (\"userId\") REFERENCES \"public\".\"users\"(\"id\") ON DELETE cascade ON UPDATE no action;",
+      "\nCREATE UNIQUE INDEX \"passkey_credential_id_unique\" ON \"passkey\" USING btree (\"credentialID\");",
+      "\nCREATE INDEX \"passkey_user_id_idx\" ON \"passkey\" USING btree (\"userId\");"
+    ],
+    "bps": true,
+    "folderMillis": 1766320943238,
+    "hash": "04f182b63831164f27d4bdbe9efeef318ea6efebaa778bcc1505a6b905033344"
   }
 ]
